@@ -12,4 +12,7 @@
     <string name="restart">是否重新开始</string>
     <string name="back_to_menu">返回菜单</string>
     <string name="ok">确定</string>
+    <string name="about">关于</string>
+    <string name="help">帮助</string>
+	<string name="rule">五子棋是一种两人对弈的纯策略型棋类游戏，通常双方分别使用黑白两色的棋子，轮流下在棋盘直线与横线的交叉点上，先在横线、直线或斜对角线上形成5子连线者获胜。</string>
 </resources>

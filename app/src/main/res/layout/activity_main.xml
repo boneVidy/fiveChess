@@ -17,21 +17,34 @@
         app:layout_constraintTop_toTopOf="parent">
         <Button
             android:id="@+id/button1"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"
             android:text="@string/btn_Start" />
 
         <com.google.android.material.switchmaterial.SwitchMaterial
             android:id="@+id/switch_btn"
             android:text="@string/btn_music"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/btn_width"
             android:layout_height="wrap_content"/>
-        <Button
+
+		<Button
+			android:id="@+id/helper_btn"
+			android:layout_width="@dimen/btn_width"
+			android:layout_height="wrap_content"
+			android:text="@string/help" />
+
+		<Button
+			android:id="@+id/about_btn"
+			android:layout_width="@dimen/btn_width"
+			android:layout_height="wrap_content"
+			android:text="@string/about" />
+
+		<Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+			android:layout_width="@dimen/btn_width"
+			android:layout_height="wrap_content"
             android:action="onClickE"
             android:text="@string/btn_exit" />
 
-    </LinearLayout>
+	</LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

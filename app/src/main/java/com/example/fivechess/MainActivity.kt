@@ -14,6 +14,11 @@ class MainActivity : AppCompatActivity() {
         val btnExit = findViewById<View>(R.id.button2) as Button
         val btnStart = findViewById<View>(R.id.button1) as Button
         val musicSwitch = findViewById<View>(R.id.switch_btn) as SwitchMaterial
+		val helpBtn = findViewById<Button>(R.id.helper_btn)
+		helpBtn.setOnClickListener{
+			val intent = Intent(baseContext, HelpActivity::class.java)
+			startActivity(intent)
+		}
         btnExit.setOnClickListener {
             val intent = Intent(baseContext, Music::class.java)
             stopService(intent)

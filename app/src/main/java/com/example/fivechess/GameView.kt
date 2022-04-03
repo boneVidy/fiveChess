@@ -14,16 +14,20 @@ class GameView(context: Context) : FrameLayout(context) {
     private var isBlack:Boolean = true;
     init {
         addView(checkerboard)
+		// 通过捕获棋盘上的点击事件获取当前所下棋子的坐标
         checkerboard.setOnCheckboardTouchListener{ col,row ->
             val currentPosType = checkerboard.getChess(col,row)
             if (currentPosType == ChessType.NONE) {
                 val type = if (isBlack) ChessType.BLACK else ChessType.WHITE
                 checkerboard.setChess(col, row, type)
-                val hasWin = isWin(col, row, type)
+				// 检测在此处落子是否能让玩家赢棋
+                val hasWin = isWin(col, row, type, checkerboard)
                 if (hasWin) {
+                	// 如果确定赢棋则弹窗提示玩家重新开始游戏或者退出游戏
                     showResultDialog(type, context)
                     return@setOnCheckboardTouchListener
                 }
+				// 如果没有赢棋，则切换玩家下期
                 isBlack = !isBlack
             } else {
                 Toast.makeText(
@@ -63,146 +67,6 @@ class GameView(context: Context) : FrameLayout(context) {
 
     private fun restart() {
         checkerboard.resetChess()
-    }
-
-    private fun isWin (col: Int, row: Int, type: ChessType):Boolean {
-        if (check5ChessInVerticalLine(col, row, type)) {
-            return true
-        }
-        if (check5ChessInHorizonLine (col,row,type)) {
-            return true
-        }
-        if (check5ChessInObliqueLine(col, row, type)) {
-            return true
-        }
-        if (check5ChessInReverseObliqueLine(col, row, type)) {
-            return true
-        }
-        return false
-    }
-
-    /**
-     * 纵向判断输赢
-     */
-    private fun check5ChessInVerticalLine(col: Int, row: Int, chessType: ChessType):Boolean {
-        var count = 0
-        for (i in row + 1 until row + 5) {
-            if (i > checkerboard.rows) {
-                break;
-            }
-            if (checkerboard.getChess(col, i) == chessType) {
-                count ++;
-            } else {
-                break
-
-            }
-        }
-        for (i in row downTo row-5) {
-            if (i < 0) {
-                break
-            }
-            if (checkerboard.getChess(col, i) == chessType) {
-                count ++
-            } else {
-                break
-            }
-        }
-
-        return count >= 5
-    }
-
-    /**
-     * 横向判断输赢
-     */
-    private fun check5ChessInHorizonLine(col: Int, row: Int, chessType: ChessType):Boolean {
-        var count = 0
-        for (i in col + 1 until col + 5) {
-            if (i > checkerboard.rows) {
-                break;
-            }
-            if (checkerboard.getChess(i, row) == chessType) {
-                count ++;
-            } else {
-                break
-
-            }
-        }
-        for (i in col downTo col-5) {
-            if (i < 0) {
-                break
-            }
-            if (checkerboard.getChess(i, row) == chessType) {
-                count ++
-            } else {
-                break
-            }
-        }
-
-        return count >= 5
-    }
-
-    /**
-     * 斜线判断输赢
-     */
-    private fun check5ChessInObliqueLine(col: Int, row: Int, chessType: ChessType):Boolean {
-        var count = 1
-        // 向上搜索
-        var c = col - 1
-        var r = row - 1
-        while (c >= 0 && r  >= 0) {
-            if (checkerboard.getChess(c, r) == chessType) {
-                count ++
-                c --
-                r --
-            } else {
-                break
-            }
-        }
-        // 向下搜哟
-        c = col + 1
-        r = row + 1
-        while (c < checkerboard.cols && r < checkerboard.rows) {
-            if (checkerboard.getChess(c, r) == chessType) {
-                count ++
-                c ++
-                r ++
-            } else{
-                break
-            }
-        }
-        return count >= 5
-    }
-
-    /**
-     * 反斜线判断输赢
-     */
-    private fun check5ChessInReverseObliqueLine (col: Int, row: Int, chessType: ChessType):Boolean {
-        var count = 1
-        // 向上搜索
-        var c = col + 1
-        var r = row - 1
-        while (c < checkerboard.cols && r  >= 0) {
-            if (checkerboard.getChess(c, r) == chessType) {
-                count ++
-                c ++
-                r --
-            } else {
-                break
-            }
-        }
-        // 正向搜索
-        c = col -1
-        r = row + 1
-        while (c >= 0 && r < checkerboard.rows) {
-            if (checkerboard.getChess(c, r) == chessType) {
-                count ++
-                c --
-                r ++
-            } else{
-                break
-            }
-        }
-        return count >= 5
     }
 
 }

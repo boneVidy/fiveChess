@@ -108,7 +108,7 @@ class Checkerboard(context: Context?) : View(context) {
     private fun initBoard() {
         val dm = resources.displayMetrics
         val screenWidth = dm.widthPixels // 屏幕宽度
-        val screenHeight = dm.heightPixels
+        val screenHeight = dm.heightPixels //屏幕高度
         PADDING_LEFT = (screenWidth / cols - 1) / 2
         PADDING_TOP = (screenHeight / rows - 1) / 2
         val PADDING = PADDING_LEFT.coerceAtMost(PADDING_TOP)
